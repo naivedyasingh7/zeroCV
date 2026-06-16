@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #E41613;
+  --color-primary-hover: #c31110;
+  --color-accent: #C5A880;
+  --color-dark-bg: #050B14;
+  --color-dark-card: #0C1524;
+  --color-dark-border: #1E2D42;
+  
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular;
+}
+
+:root {
+  --background: #050B14;
+  --foreground: #f8fafc;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #050B14;
+}
+::-webkit-scrollbar-thumb {
+  background: #1E2D42;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2D3F59;
+}
+
+/* Glassmorphism utility */
+.glass-card {
+  background: rgba(12, 21, 36, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(30, 45, 66, 0.5);
+}
+
+/* Glow Border effects */
+.glow-border {
+  position: relative;
+  z-index: 1;
+}
+
+.glow-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(228, 22, 19, 0.3), rgba(197, 168, 128, 0.3));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.glow-border:hover::before {
+  background: linear-gradient(135deg, rgba(228, 22, 19, 0.8), rgba(197, 168, 128, 0.8));
+}
