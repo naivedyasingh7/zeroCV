@@ -6,7 +6,7 @@ import {
   Brain, Cpu, Sparkles,
   ArrowRight, Lock, Check, Calendar,
   FileText, CheckCircle, RefreshCw,
-  ShieldAlert
+  ShieldAlert, Trash2
 } from "lucide-react";
 import PortalShaderCanvas from "../components/PortalShaderCanvas";
 import ThreeDnaCanvas from "../components/ThreeDnaCanvas";
@@ -46,18 +46,7 @@ const templates = {
   }
 };
 
-const candidates = {
-  alex: {
-    name: "Alex Mercer",
-    resume: "Alex Mercer Resume\nSkills: React, JavaScript, TypeScript, CSS, TailwindCSS, Git.\nProjects: Created SaaS CRM Core Dashboard utilizing hooks and custom states, speeding up ui rendering by 30%.\nTenure: 1.5 years experience.",
-    experience: 1.5,
-  },
-  sarah: {
-    name: "Sarah Connor",
-    resume: "Sarah Connor Resume\nSkills: Python, Django, SQL, PostgreSQL, Docker, AWS, Kubernetes, Git, Node.js.\nProjects: Designed concurrent billing endpoint in Django and PostgreSQL processing 5M daily requests; automated AWS EKS deployments.\nTenure: 8 years experience.",
-    experience: 8.0,
-  }
-};
+
 
 const skillsVocabulary = [
   'react', 'javascript', 'typescript', 'python', 'django', 'flask', 'nodejs', 'express',
@@ -195,15 +184,98 @@ export default function Home() {
 
   // Valuation Engine (Sandbox) State
   const [selectedJdKey, setSelectedJdKey] = useState<'frontend' | 'backend'>('frontend');
-  const [jdText, setJdText] = useState(templates.frontend.jd);
-  const [resumeText, setResumeText] = useState(candidates.alex.resume);
-  const [candidateName, setCandidateName] = useState(candidates.alex.name);
+  const [jdText, setJdText] = useState("");
+  const [resumeText, setResumeText] = useState("");
+  const [candidateName, setCandidateName] = useState("");
+  const [githubUrl, setGithubUrl] = useState<string>("");
+  const [uploadedFileName, setUploadedFileName] = useState<string>("");
   const [calcScore, setCalcScore] = useState<number | null>(null);
   const [calcSkills, setCalcSkills] = useState<string[]>([]);
-  const [calcExp, setCalcExp] = useState<number>(1.5);
+  const [calcExp, setCalcExp] = useState<number>(0);
   const [calcTag, setCalcTag] = useState<string>("None");
+  const [aiReasoning, setAiReasoning] = useState<string>("");
+  const [assessmentId, setAssessmentId] = useState<string | null>(null);
+  const [invitations, setInvitations] = useState<any[]>([]);
   const [simulating, setSimulating] = useState(false);
   const [schedulingState, setSchedulingState] = useState<'idle' | 'loading' | 'success'>('idle');
+
+  // Fetch dispatched invitations from backend
+  const fetchInvitations = async () => {
+    try {
+      const res = await fetch('/api/sandbox/invitations');
+      if (res.ok) {
+        const data = await res.json();
+        setInvitations(data);
+      }
+    } catch (err) {
+      console.error('Failed to fetch invitations:', err);
+    }
+  };
+
+  // Delete a specific invitation
+  const deleteSingleInvitation = async (id: string) => {
+    try {
+      const res = await fetch(`/api/sandbox/invitations?id=${id}`, {
+        method: 'DELETE',
+      });
+      if (res.ok) {
+        fetchInvitations();
+      }
+    } catch (err) {
+      console.error('Failed to delete invitation:', err);
+    }
+  };
+
+  // Clear all database records (assessments & invitations)
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadedFileName(file.name);
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const text = event.target?.result;
+      if (typeof text === 'string') {
+        setResumeText(text);
+
+        // Try to guess candidate name from file name if Candidate Name is empty
+        const cleanName = file.name
+          .replace(/\.[^/.]+$/, "")
+          .replace(/[-_]/g, " ")
+          .replace(/resume/gi, "")
+          .trim();
+
+        if (cleanName && !candidateName) {
+          const formattedName = cleanName
+            .split(" ")
+            .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+            .join(" ")
+            .trim();
+          if (formattedName) {
+            setCandidateName(formattedName);
+          }
+        }
+      }
+    };
+    reader.readAsText(file);
+  };
+
+  const clearAllHistory = async () => {
+    try {
+      const res = await fetch('/api/sandbox/invitations', {
+        method: 'DELETE',
+      });
+      if (res.ok) {
+        setInvitations([]);
+        setCalcScore(null);
+        setAssessmentId(null);
+        setSchedulingState('idle');
+      }
+    } catch (err) {
+      console.error('Failed to clear database logs:', err);
+    }
+  };
 
   // Responsive Navbar target coordinates
   useEffect(() => {
@@ -223,9 +295,9 @@ export default function Home() {
     return () => window.removeEventListener("resize", updateTravelCoords);
   }, []);
 
-  // Trigger evaluation immediately on load for preset
+  // Fetch invitations on mount
   useEffect(() => {
-    calculateMatching(templates.frontend.jd, candidates.alex.resume, candidates.alex.experience);
+    fetchInvitations();
   }, []);
 
   // Opening sequence initialization + scroll lock
@@ -799,109 +871,82 @@ export default function Home() {
   const selectJd = (key: 'frontend' | 'backend') => {
     setSelectedJdKey(key);
     setJdText(templates[key].jd);
-    calculateMatching(templates[key].jd, resumeText, calcExp);
+    calculateMatching(templates[key].jd, resumeText, calcExp, candidateName, githubUrl);
   };
 
-  const loadCandidatePreset = (key: 'alex' | 'sarah') => {
-    setResumeText(candidates[key].resume);
-    setCandidateName(candidates[key].name);
-    setCalcExp(candidates[key].experience);
-    calculateMatching(jdText, candidates[key].resume, candidates[key].experience);
-  };
 
-  const calculateMatching = (jd: string, resume: string, expYears: number) => {
+
+  const calculateMatching = async (jd: string, resume: string, expYears: number, overrideName?: string, overrideGithubUrl?: string) => {
     setSimulating(true);
     setSchedulingState('idle');
+    const targetName = overrideName || candidateName;
+    const targetGithubUrl = overrideGithubUrl !== undefined ? overrideGithubUrl : githubUrl;
 
-    setTimeout(() => {
-      const cleanTokens = (txt: string) => {
-        return txt.toLowerCase()
-          .replace(/[^a-z0-9\s-]/g, ' ')
-          .split(/\s+/)
-          .filter(t => t.length > 2);
-      };
-
-      const tokens1 = cleanTokens(jd);
-      const tokens2 = cleanTokens(resume);
-
-      const foundSkills: string[] = [];
-      skillsVocabulary.forEach(s => {
-        const regex = new RegExp(`\\b${s.replace(/\+/g, '\\+')}\\b`, 'i');
-        if (regex.test(resume.toLowerCase())) {
-          foundSkills.push(s);
-        }
+    try {
+      const res = await fetch('/api/sandbox/evaluate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          jdText: jd,
+          resumeText: resume,
+          candidateName: targetName,
+          experience: expYears,
+          githubUrl: targetGithubUrl
+        }),
       });
 
-      if (tokens1.length === 0 || tokens2.length === 0) {
-        setCalcScore(0);
-        setSimulating(false);
-        return;
+      if (res.ok) {
+        const data = await res.json();
+        setCalcScore(data.score);
+        setCalcSkills(data.skills);
+        setCalcTag(data.tag);
+        setAiReasoning(data.aiReasoning);
+        setAssessmentId(data.id);
+      } else {
+        console.error('Failed to run similarity evaluation');
       }
-
-      const tfMap1: Record<string, number> = {};
-      const tfMap2: Record<string, number> = {};
-
-      tokens1.forEach(t => tfMap1[t] = (tfMap1[t] || 0) + 1);
-      tokens2.forEach(t => tfMap2[t] = (tfMap2[t] || 0) + 1);
-
-      const allTerms = new Set([...Object.keys(tfMap1), ...Object.keys(tfMap2)]);
-
-      let dotProduct = 0;
-      let magnitude1 = 0;
-      let magnitude2 = 0;
-
-      allTerms.forEach(term => {
-        const val1 = tfMap1[term] || 0;
-        const val2 = tfMap2[term] || 0;
-
-        dotProduct += val1 * val2;
-        magnitude1 += val1 * val1;
-        magnitude2 += val2 * val2;
-      });
-
-      let similarity = 0;
-      if (magnitude1 > 0 && magnitude2 > 0) {
-        similarity = dotProduct / (Math.sqrt(magnitude1) * Math.sqrt(magnitude2));
-      }
-
-      let skillScore = Math.round(similarity * 100);
-      if (skillScore < 45) skillScore = 45 + Math.round(Math.random() * 15);
-      if (skillScore > 98) skillScore = 98;
-
-      const expScore = Math.min(100, Math.round((expYears / 5) * 100));
-      const finalScore = Math.round(skillScore * 0.6 + expScore * 0.4);
-
-      let tag = "None";
-      if (finalScore >= 80 && expYears < 2.5) {
-        tag = "🔥 Hidden Talent";
-      } else if (finalScore >= 85) {
-        tag = "⭐ Top Fit";
-      }
-
-      setCalcScore(finalScore);
-      setCalcSkills(foundSkills.length > 0 ? foundSkills : ["react", "git", "html"]);
-      setCalcTag(tag);
+    } catch (err) {
+      console.error('Error running similarity evaluation:', err);
+    } finally {
       setSimulating(false);
-    }, 800);
+    }
   };
 
   const handleManualAnalyze = () => {
-    let years = calcExp;
-    const expRegex = /(?:(\d+)\+?\s*(?:year|yr)s?\s*(?:of)?\s*(?:experience|exp|work)?)/gi;
-    let match;
-    while ((match = expRegex.exec(resumeText.toLowerCase())) !== null) {
-      const val = parseInt(match[1]);
-      if (val > 0 && val < 20) years = val;
-    }
-    setCalcExp(years);
-    calculateMatching(jdText, resumeText, years);
+    calculateMatching(jdText, resumeText, calcExp, candidateName, githubUrl);
   };
 
-  const triggerSchedule = () => {
+  const triggerSchedule = async () => {
+    if (!assessmentId) return;
     setSchedulingState('loading');
-    setTimeout(() => {
-      setSchedulingState('success');
-    }, 1500);
+    try {
+      const res = await fetch('/api/sandbox/dispatch', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          assessmentId,
+          candidateName,
+          score: calcScore,
+          tag: calcTag,
+          githubUrl
+        }),
+      });
+
+      if (res.ok) {
+        setSchedulingState('success');
+        fetchInvitations();
+      } else {
+        setSchedulingState('idle');
+        console.error('Failed to dispatch pipeline invitation');
+      }
+    } catch (err) {
+      setSchedulingState('idle');
+      console.error('Error dispatching pipeline invitation:', err);
+    }
   };
 
   return (
@@ -2005,30 +2050,6 @@ export default function Home() {
                 <h2 className="font-sans font-black text-3xl md:text-5xl text-white tracking-tight mt-2">Valuation Engine Workspace</h2>
               </div>
               
-              {/* Presets */}
-              <div className="flex items-center flex-wrap gap-3">
-                <span className="text-xs text-on-surface-variant font-mono uppercase tracking-wider">Presets:</span>
-                <button 
-                  onClick={() => loadCandidatePreset('alex')}
-                  className={`text-xs px-4 py-2 rounded-lg border font-mono font-bold transition-all ${
-                    candidateName === "Alex Mercer" 
-                      ? "bg-secondary/15 border-secondary text-secondary shadow-[0_0_10px_rgba(197,168,128,0.2)]" 
-                      : "bg-black/40 border-white/10 text-on-surface-variant hover:text-white"
-                  }`}
-                >
-                  Alex Mercer (🔥 Talent)
-                </button>
-                <button 
-                  onClick={() => loadCandidatePreset('sarah')}
-                  className={`text-xs px-4 py-2 rounded-lg border font-mono font-bold transition-all ${
-                    candidateName === "Sarah Connor" 
-                      ? "bg-secondary/15 border-secondary text-secondary shadow-[0_0_10px_rgba(197,168,128,0.2)]" 
-                      : "bg-black/40 border-white/10 text-on-surface-variant hover:text-white"
-                  }`}
-                >
-                  Sarah Connor (⭐ Top Fit)
-                </button>
-              </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -2036,6 +2057,7 @@ export default function Home() {
               {/* Left Sandbox Inputs */}
               <div className="lg:col-span-6 flex flex-col gap-8">
                 
+                {/* 1. Job Requirements Spec */}
                 <div className="glass-card p-6 rounded-2xl flex flex-col gap-4">
                   <div className="flex justify-between items-center">
                     <h3 className="font-mono font-bold text-xs text-on-surface uppercase tracking-wider flex items-center gap-2">
@@ -2071,23 +2093,110 @@ export default function Home() {
                   />
                 </div>
 
+                {/* 2. Candidate Identity DNA */}
                 <div className="glass-card p-6 rounded-2xl flex flex-col gap-4">
                   <h3 className="font-mono font-bold text-xs text-on-surface uppercase tracking-wider flex items-center gap-2">
-                    <FileText className="w-4 h-4 text-secondary" />
-                    2. Candidate Experience Text
+                    <Cpu className="w-4 h-4 text-secondary" />
+                    2. Candidate Identity DNA
                   </h3>
                   
-                  <textarea 
-                    value={resumeText}
-                    onChange={(e) => setResumeText(e.target.value)}
-                    rows={5}
-                    className="w-full bg-black/50 border border-white/10 rounded-xl text-white text-xs p-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none font-mono resize-none leading-relaxed"
-                  />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-[9px] font-mono text-on-surface-variant uppercase tracking-wider font-bold">Candidate Name</label>
+                      <input
+                        type="text"
+                        placeholder="e.g. Jane Doe"
+                        value={candidateName}
+                        onChange={(e) => setCandidateName(e.target.value)}
+                        className="w-full bg-black/50 border border-white/10 rounded-xl text-white text-xs p-3 focus:ring-1 focus:ring-primary focus:border-primary outline-none font-sans"
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-[9px] font-mono text-on-surface-variant uppercase tracking-wider font-bold">Years of Experience</label>
+                      <input
+                        type="number"
+                        min="0"
+                        max="30"
+                        step="0.5"
+                        placeholder="e.g. 5"
+                        value={calcExp}
+                        onChange={(e) => setCalcExp(parseFloat(e.target.value) || 0)}
+                        className="w-full bg-black/50 border border-white/10 rounded-xl text-white text-xs p-3 focus:ring-1 focus:ring-primary focus:border-primary outline-none font-mono"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[9px] font-mono text-on-surface-variant uppercase tracking-wider font-bold">GitHub Profile URL</label>
+                    <input
+                      type="url"
+                      placeholder="e.g. https://github.com/username"
+                      value={githubUrl}
+                      onChange={(e) => setGithubUrl(e.target.value)}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl text-white text-xs p-3 focus:ring-1 focus:ring-primary focus:border-primary outline-none font-mono"
+                    />
+                  </div>
+                </div>
+
+                {/* 3. Candidate Experience Text */}
+                <div className="glass-card p-6 rounded-2xl flex flex-col gap-4">
+                  <div className="flex justify-between items-center">
+                    <h3 className="font-mono font-bold text-xs text-on-surface uppercase tracking-wider flex items-center gap-2">
+                      <FileText className="w-4 h-4 text-secondary" />
+                      3. Candidate Experience Text
+                    </h3>
+                    {uploadedFileName && (
+                      <span className="text-[9px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded flex items-center gap-1">
+                        <Check className="w-2.5 h-2.5" />
+                        {uploadedFileName.length > 18 ? uploadedFileName.substring(0, 15) + '...' : uploadedFileName}
+                      </span>
+                    )}
+                  </div>
+                  
+                  {/* File Upload Zone */}
+                  <label className="border border-dashed border-white/10 hover:border-secondary/35 bg-black/40 hover:bg-black/60 rounded-xl p-6 transition-all flex flex-col items-center justify-center gap-2 cursor-pointer group select-none text-center">
+                    <input 
+                      type="file" 
+                      accept=".txt,.md,.json" 
+                      onChange={handleFileChange}
+                      className="hidden" 
+                    />
+                    <FileText className="w-7 h-7 text-on-surface-variant group-hover:text-secondary group-hover:scale-105 transition-all" />
+                    <span className="text-xs text-white font-mono font-bold uppercase tracking-wider">
+                      Upload Resume File
+                    </span>
+                    <span className="text-[10px] text-on-surface-variant/85 font-sans leading-relaxed mt-0.5">
+                      Drag & Drop or click to read text from <span className="text-secondary font-mono">.txt, .md, .json</span> files
+                    </span>
+                  </label>
+
+                  {/* Text editor view */}
+                  <div className="flex flex-col gap-1.5 mt-2">
+                    <div className="flex justify-between items-center text-[9px] font-mono text-on-surface-variant uppercase tracking-wider font-bold">
+                      <span>Resume Content Editor</span>
+                      {resumeText && (
+                        <button 
+                          onClick={() => { setResumeText(""); setUploadedFileName(""); }}
+                          className="text-primary hover:text-red-400 transition-colors cursor-pointer"
+                        >
+                          Clear Text
+                        </button>
+                      )}
+                    </div>
+                    <textarea 
+                      value={resumeText}
+                      onChange={(e) => setResumeText(e.target.value)}
+                      placeholder="Paste resume text details here, or upload a resume file above..."
+                      rows={5}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl text-white text-xs p-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none font-mono resize-none leading-relaxed"
+                    />
+                  </div>
                   
                   <button 
                     onClick={handleManualAnalyze}
                     disabled={simulating}
-                    className="bg-primary/10 border border-primary/30 hover:bg-primary/20 text-primary font-mono font-bold text-xs py-4 rounded-xl transition-all flex items-center justify-center gap-2"
+                    className="bg-primary/10 border border-primary/30 hover:bg-primary/20 text-primary font-mono font-bold text-xs py-4 rounded-xl transition-all flex items-center justify-center gap-2 animate-pulse-slow"
                   >
                     {simulating ? (
                       <>
@@ -2183,13 +2292,7 @@ export default function Home() {
                     {/* Summary output description */}
                     <div className="bg-primary/5 border border-primary/15 p-4 rounded-xl text-xs text-on-surface-variant leading-relaxed">
                       <span className="font-mono font-bold text-primary block mb-1 uppercase text-[10px]">AI Matching Evaluation</span>
-                      {calcTag === "🔥 Hidden Talent" ? (
-                        "High repository activity detected. Output density matches senior profiles despite limited tenure. Strongly recommend fast-track technical challenge."
-                      ) : calcScore >= 80 ? (
-                        "Strong fit. Candidate demonstrates clean patterns in key frameworks requested. Ready to bypass standard screening filters."
-                      ) : (
-                        "Acceptable core skills found, but alignment reveals minor stack gaps in specialized packages outlined in requirements."
-                      )}
+                      {aiReasoning || "Evaluating capability alignment..."}
                     </div>
                   </div>
                 )}
@@ -2242,6 +2345,107 @@ export default function Home() {
 
               </div>
 
+            </div>
+
+            {/* Live Automation Pipeline Logs (Dispatched Syncs) */}
+            <div className="glass-card p-6 md:p-8 rounded-2xl border border-white/5 flex flex-col gap-6 mt-8 animate-fade-in relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-48 h-48 bg-secondary/5 rounded-full blur-3xl pointer-events-none" />
+              
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-white/5 relative z-10">
+                <div>
+                  <h3 className="font-sans font-bold text-lg text-white flex items-center gap-2">
+                    <Sparkles className="w-4.5 h-4.5 text-secondary animate-pulse" />
+                    Live Automation Pipeline Logs
+                  </h3>
+                  <p className="text-[11px] font-mono text-on-surface-variant uppercase tracking-wider mt-1">
+                    Verified candidate invitation syncs stored in persistent backend
+                  </p>
+                </div>
+                {invitations.length > 0 && (
+                  <button
+                    onClick={clearAllHistory}
+                    className="border border-primary/30 bg-primary/10 hover:bg-primary/20 text-primary hover:text-white font-mono text-[9px] uppercase tracking-widest px-3.5 py-2 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                    Clear Pipeline Logs
+                  </button>
+                )}
+              </div>
+
+              {invitations.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-10 text-center text-on-surface-variant gap-2 relative z-10">
+                  <ShieldAlert className="w-8 h-8 text-white/20" />
+                  <p className="font-mono font-bold text-white text-xs uppercase tracking-wider">No invitations dispatched yet</p>
+                  <p className="text-[11px]">Run a similarity evaluation and click "Dispatch Invitation Sync" to record sync events.</p>
+                </div>
+              ) : (
+                <div className="overflow-x-auto relative z-10">
+                  <table className="w-full text-left border-collapse font-mono text-xs text-on-surface-variant">
+                    <thead>
+                      <tr className="border-b border-white/5 text-[10px] text-white uppercase tracking-wider">
+                        <th className="pb-3 font-semibold">Candidate</th>
+                        <th className="pb-3 font-semibold">Alignment</th>
+                        <th className="pb-3 font-semibold">Scheduled Sync Event</th>
+                        <th className="pb-3 font-semibold">Status</th>
+                        <th className="pb-3 font-semibold text-right">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-white/5">
+                      {invitations.map((inv) => (
+                        <tr key={inv.id} className="hover:bg-white/[0.02] transition-colors">
+                          <td className="py-4 font-sans font-bold text-white text-sm">
+                            {inv.githubUrl ? (
+                              <a
+                                href={inv.githubUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-secondary hover:text-primary hover:underline transition-all flex items-center gap-1.5"
+                              >
+                                {inv.candidateName}
+                                <span className="text-[9px] font-mono text-on-surface-variant/70 font-normal">
+                                  (@{inv.githubUrl.trim().replace(/\/$/, "").split("/").pop()})
+                                </span>
+                              </a>
+                            ) : (
+                              inv.candidateName
+                            )}
+                          </td>
+                          <td className="py-4">
+                            <div className="flex items-center gap-2">
+                              <span className="text-white bg-black/40 px-2 py-0.5 rounded border border-white/10 text-[10px]">
+                                {inv.score}%
+                              </span>
+                              {inv.tag !== "None" && (
+                                <span className="text-secondary bg-secondary/10 px-2.5 py-0.5 rounded-full text-[9px] font-bold">
+                                  {inv.tag}
+                                </span>
+                              )}
+                            </div>
+                          </td>
+                          <td className="py-4 font-sans text-xs text-on-surface-variant/95">
+                            {inv.scheduledTime}
+                          </td>
+                          <td className="py-4">
+                            <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full uppercase tracking-wider">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                              Dispatched
+                            </span>
+                          </td>
+                          <td className="py-4 text-right">
+                            <button
+                              onClick={() => deleteSingleInvitation(inv.id)}
+                              className="text-on-surface-variant/60 hover:text-primary transition-colors p-1.5 rounded hover:bg-white/5 cursor-pointer"
+                              title="Delete record"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
           </div>
         </section>

@@ -1,0 +1,252 @@
+{
+  "assessments": [
+    {
+      "candidateName": "Alex Mercer",
+      "jdText": "React Frontend Developer\n- 3+ years experience building interfaces with React and TypeScript\n- Advanced styling layout controls using TailwindCSS\n- State management models and responsive dashboard rendering",
+      "resumeText": "Alex Mercer Resume\nSkills: React, JavaScript, TypeScript, CSS, TailwindCSS, Git.\nProjects: Created SaaS CRM Core Dashboard utilizing hooks and custom states, speeding up ui rendering by 30%.\nTenure: 1.5 years experience.",
+      "score": 43,
+      "skills": [
+        "react",
+        "javascript",
+        "typescript",
+        "css",
+        "tailwindcss",
+        "git"
+      ],
+      "experience": 1.5,
+      "tag": "None",
+      "aiReasoning": "High repository activity detected. Output density matches senior profiles despite limited tenure. Strongly recommend fast-track technical challenge.",
+      "id": "asm_wtzrhvrkf",
+      "createdAt": "2026-06-18T09:29:34.495Z"
+    },
+    {
+      "candidateName": "Alex Mercer",
+      "jdText": "React Frontend Developer\n- 3+ years experience building interfaces with React and TypeScript\n- Advanced styling layout controls using TailwindCSS\n- State management models and responsive dashboard rendering",
+      "resumeText": "Alex Mercer Resume\nSkills: React, JavaScript, TypeScript, CSS, TailwindCSS, Git.\nProjects: Created SaaS CRM Core Dashboard utilizing hooks and custom states, speeding up ui rendering by 30%.\nTenure: 1.5 years experience.",
+      "score": 72,
+      "skills": [
+        "react",
+        "javascript",
+        "typescript",
+        "css",
+        "tailwindcss",
+        "git"
+      ],
+      "experience": 5,
+      "tag": "None",
+      "aiReasoning": "High repository activity detected. Output density matches senior profiles despite limited tenure. Strongly recommend fast-track technical challenge.",
+      "id": "asm_rcvsrivpc",
+      "createdAt": "2026-06-18T09:30:44.982Z"
+    },
+    {
+      "candidateName": "Alex Mercer",
+      "jdText": "Python Platform Engineer\n- 4+ years of professional backend design using Python and Django\n- Relational databases (PostgreSQL/SQL) and Redis cache optimization\n- Docker container orchestration and API integrations",
+      "resumeText": "Alex Mercer Resume\nSkills: React, JavaScript, TypeScript, CSS, TailwindCSS, Git.\nProjects: Created SaaS CRM Core Dashboard utilizing hooks and custom states, speeding up ui rendering by 30%.\nTenure: 1.5 years experience.",
+      "score": 70,
+      "skills": [
+        "react",
+        "javascript",
+        "typescript",
+        "css",
+        "tailwindcss",
+        "git"
+      ],
+      "experience": 5,
+      "tag": "None",
+      "aiReasoning": "High repository activity detected. Output density matches senior profiles despite limited tenure. Strongly recommend fast-track technical challenge.",
+      "id": "asm_9irpltken",
+      "createdAt": "2026-06-18T09:31:02.160Z"
+    },
+    {
+      "candidateName": "Alex Mercer",
+      "jdText": "Python Platform Engineer\n- 4+ years of professional backend design using Python and Django\n- Relational databases (PostgreSQL/SQL) and Redis cache optimization\n- Docker container orchestration and API integrations",
+      "resumeText": "Alex Mercer Resume\nSkills: React, JavaScript, TypeScript, CSS, TailwindCSS, Git.\nProjects: Created SaaS CRM Core Dashboard utilizing hooks and custom states, speeding up ui rendering by 30%.\nTenure: 1.5 years experience.",
+      "score": 68,
+      "skills": [
+        "react",
+        "javascript",
+        "typescript",
+        "css",
+        "tailwindcss",
+        "git"
+      ],
+      "experience": 5,
+      "tag": "None",
+      "aiReasoning": "High repository activity detected. Output density matches senior profiles despite limited tenure. Strongly recommend fast-track technical challenge.",
+      "id": "asm_vj8ejlcjn",
+      "createdAt": "2026-06-18T09:31:02.721Z"
+    },
+    {
+      "candidateName": "Alex Mercer",
+      "jdText": "Python Platform Engineer\n- 4+ years of professional backend design using Python and Django\n- Relational databases (PostgreSQL/SQL) and Redis cache optimization\n- Docker container orchestration and API integrations",
+      "resumeText": "Alex Mercer Resume\nSkills: React, JavaScript, TypeScript, CSS, TailwindCSS, Git.\nProjects: Created SaaS CRM Core Dashboard utilizing hooks and custom states, speeding up ui rendering by 30%.\nTenure: 1.5 years experience.",
+      "score": 74,
+      "skills": [
+        "react",
+        "javascript",
+        "typescript",
+        "css",
+        "tailwindcss",
+        "git"
+      ],
+      "experience": 5,
+      "tag": "None",
+      "aiReasoning": "High repository activity detected. Output density matches senior profiles despite limited tenure. Strongly recommend fast-track technical challenge.",
+      "id": "asm_q581xjfcn",
+      "createdAt": "2026-06-18T09:31:03.553Z"
+    },
+    {
+      "candidateName": "Alex Mercer",
+      "jdText": "React Frontend Developer\n- 3+ years experience building interfaces with React and TypeScript\n- Advanced styling layout controls using TailwindCSS\n- State management models and responsive dashboard rendering",
+      "resumeText": "Alex Mercer Resume\nSkills: React, JavaScript, TypeScript, CSS, TailwindCSS, Git.\nProjects: Created SaaS CRM Core Dashboard utilizing hooks and custom states, speeding up ui rendering by 30%.\nTenure: 1.5 years experience.",
+      "score": 71,
+      "skills": [
+        "react",
+        "javascript",
+        "typescript",
+        "css",
+        "tailwindcss",
+        "git"
+      ],
+      "experience": 5,
+      "tag": "None",
+      "aiReasoning": "High repository activity detected. Output density matches senior profiles despite limited tenure. Strongly recommend fast-track technical challenge.",
+      "id": "asm_f0geqg07e",
+      "createdAt": "2026-06-18T09:31:04.814Z"
+    },
+    {
+      "candidateName": "Alex Mercer",
+      "jdText": "Python Platform Engineer\n- 4+ years of professional backend design using Python and Django\n- Relational databases (PostgreSQL/SQL) and Redis cache optimization\n- Docker container orchestration and API integrations",
+      "resumeText": "Alex Mercer Resume\nSkills: React, JavaScript, TypeScript, CSS, TailwindCSS, Git.\nProjects: Created SaaS CRM Core Dashboard utilizing hooks and custom states, speeding up ui rendering by 30%.\nTenure: 1.5 years experience.",
+      "score": 73,
+      "skills": [
+        "react",
+        "javascript",
+        "typescript",
+        "css",
+        "tailwindcss",
+        "git"
+      ],
+      "experience": 5,
+      "tag": "None",
+      "aiReasoning": "High repository activity detected. Output density matches senior profiles despite limited tenure. Strongly recommend fast-track technical challenge.",
+      "id": "asm_tzp2fzpqm",
+      "createdAt": "2026-06-18T09:31:06.201Z"
+    },
+    {
+      "candidateName": "Alex Mercer",
+      "jdText": "React Frontend Developer\n- 3+ years experience building interfaces with React and TypeScript\n- Advanced styling layout controls using TailwindCSS\n- State management models and responsive dashboard rendering",
+      "resumeText": "Alex Mercer Resume\nSkills: React, JavaScript, TypeScript, CSS, TailwindCSS, Git.\nProjects: Created SaaS CRM Core Dashboard utilizing hooks and custom states, speeding up ui rendering by 30%.\nTenure: 1.5 years experience.",
+      "score": 74,
+      "skills": [
+        "react",
+        "javascript",
+        "typescript",
+        "css",
+        "tailwindcss",
+        "git"
+      ],
+      "experience": 5,
+      "tag": "None",
+      "aiReasoning": "High repository activity detected. Output density matches senior profiles despite limited tenure. Strongly recommend fast-track technical challenge.",
+      "id": "asm_xph96bu0g",
+      "createdAt": "2026-06-18T09:31:10.439Z"
+    },
+    {
+      "candidateName": "Jane Doe",
+      "jdText": "React Frontend Developer\n- 3+ years experience building interfaces with React and TypeScript\n- Advanced styling layout controls using TailwindCSS\n- State management models and responsive dashboard rendering",
+      "resumeText": "Jane Doe Resume\nSkills: React, JavaScript, TypeScript, TailwindCSS, Git.\nProjects: Developed a responsive portfolio dashboard; optimized CSS rendering velocity.\nTenure: 2 years experience.",
+      "score": 49,
+      "skills": [
+        "react",
+        "javascript",
+        "typescript",
+        "css",
+        "tailwindcss",
+        "git"
+      ],
+      "experience": 2,
+      "tag": "None",
+      "aiReasoning": "Acceptable skills identified in react, javascript, typescript, but matching engine detected structural stack gaps relative to high-priority requirements in the description.",
+      "id": "asm_gpxmoteed",
+      "createdAt": "2026-06-18T09:34:12.953Z"
+    },
+    {
+      "candidateName": "Jane Doe",
+      "jdText": "React Frontend Developer\n- 3+ years experience building interfaces with React and TypeScript\n- Advanced styling layout controls using TailwindCSS\n- State management models and responsive dashboard rendering",
+      "resumeText": "Jane Doe Resume\nSkills: React, JavaScript, TypeScript, TailwindCSS, Git.\nProjects: Developed a responsive portfolio dashboard; optimized CSS rendering velocity.\nTenure: 2 years experience.",
+      "score": 59,
+      "skills": [
+        "react",
+        "javascript",
+        "typescript",
+        "css",
+        "tailwindcss",
+        "git",
+        "html"
+      ],
+      "experience": 2,
+      "tag": "None",
+      "aiReasoning": "Analyzed GitHub profile @octocat containing 8 public repositories. Detected high velocity contributions in html, css, ruby. Strongly recommend direct pipeline invite.",
+      "githubUrl": "https://github.com/octocat",
+      "id": "asm_xkqes9rk6",
+      "createdAt": "2026-06-18T09:38:58.623Z"
+    },
+    {
+      "candidateName": "naivedya ",
+      "jdText": "frontend developer ",
+      "resumeText": "NAIVEDYA SINGH\nFull-Stack Developer  ·  AI Builder  ·  SaaS Creator\nB.Tech CSE @ VIT Bhopal  |  Graduating June 2029\tnaivedyasingh9043@gmail.com\nPrayagraj, Uttar Pradesh, India\nlinkedin.com/in/naivedya-singh-5005a4366\n Hackathon Winner\n\nPROFESSIONAL SUMMARY\n\n\nDriven Computer Science undergraduate at VIT Bhopal with a proven track record of building production-ready AI and SaaS platforms. Specialises in crafting full-stack applications that integrate Large Language Models, RAG pipelines, and predictive ML to solve real-world problems across healthcare, education, and research domains. Hackathon 2nd Prize winner and open-source contributor with a bias for shipping impactful software.\n\nEDUCATION\n\n\nB.Tech – Computer Science & Engineering  |  Vellore Institute of Technology, Bhopal\tJuly 2025 – June 2029\n▸\tGPA: On track | Hackathon 2nd Prize winner | Active open-source contributor\n▸\tRelevant coursework: Data Structures & Algorithms, Machine Learning, Web Technologies, Software Engineering\n\nPROJECTS\n\n\nAegis — Hospital Claim Denial Prevention System\tApr 2026 – Present\nAI-powered revenue intelligence SaaS reducing insurance claim rejections for mid-sized hospitals and specialty clinics across India.\n▸\tBuilt a risk scoring engine combining rule-based validation with ML pattern detection to predict claim denial likelihood before submission\n▸\tAnalysed ICD-10 codes, CPT procedures, insurer-specific rules, and billing amounts to surface top denial causes with actionable remediation steps\n▸\tEngineered a 'revenue at risk' calculator that quantifies potential losses in real time, demonstrating direct ROI to billing teams\n▸\tGenerated audit-ready PDF reports covering risk flags, corrective actions, and compliance checks for regulatory readiness\nTech: Python · Scikit-learn · SaaS · PDF generation · Rule-based AI\n\nSTEMverse — AI Platform for Women in STEM\tNov 2025\nFull-stack, mobile-first Progressive Web App empowering women in STEM through personalised AI mentorship, gamified learning, and curated opportunities.\n▸\tIntegrated Google Gemini API with Retrieval-Augmented Generation (RAG) for context-aware career guidance, scholarship insights, and role-model stories\n▸\tDesigned STEMQuest gamification layer (XP, quests, achievement badges) across 3 career tracks — Software Dev, Data Science, AI\n▸\tBuilt AI Resume Analyzer using Gemini's JSON mode: delivers resume score, identified strengths, and prioritised improvement suggestions\n▸\tDelivered full community forum (tagged posts, threaded replies, upvoting) and curated Opportunities Hub with advanced search and bookmarking\nTech: React · TypeScript · Tailwind CSS · Google Gemini API · RAG · PWA · Render\n\nBioQuest — Research Intelligence Platform\tJan 2026 – Feb 2026\nSaaS platform helping students and scholars validate research ideas, identify novelty gaps, and connect with PhD-level experts.\n▸\tImplemented trend analysis engine to scan ongoing research and flag whether an idea remains novel before significant time is invested\n▸\tBuilt expert-matching system connecting researchers with domain-specific PhD mentors for methodology refinement and publication targeting\nTech: Python · SaaS · Web Design · Software Development\n\nSmart Expense & Profit Analyzer\tMar 2026\nML-powered financial tracking tool for students and micro-businesses, combining expense categorisation with predictive analytics.\n▸\tTrained a Scikit-learn regression model on historical spending data to forecast future expense trends with anomaly detection for unusual patterns\n▸\tDelivered profit calculation module for micro-business transactions with an aggregated financial summary dashboard\nTech: Python · Scikit-learn · Machine Learning · Regression · Anomaly Detection\n\nSRO — Smart Schedule Planner\tNov 2025\n▸\tBuilt an intelligent task scheduling system with multiple optimisation algorithms, visual monthly calendar, and habit tracking\n▸\tArchitected Python backend scheduling engine exposed via RESTful API to a Vanilla JS frontend with schedule export functionality\nTech: Python · Vanilla JavaScript · RESTful API · Backend Engineering\n\nTECHNICAL SKILLS\n\n\nLanguages & Frameworks\nPython\tJavaScript\tTypeScript\tReact\n\nAI / ML\nGemini API\tRAG Pipelines\tScikit-learn\tPrompt Engineering\n\nTools & Platforms\nTailwind CSS\tRESTful APIs\tGit / GitHub\tRender / PWA\n\nDomain Expertise\nSaaS Development\tFull-Stack Dev\tHealthcare Tech\tEdTech\n\nCERTIFICATIONS & ACHIEVEMENTS\n\n\nHackathon – 2nd Prize  |  Competitive Hackathon\t2025\n▸\tSecured 2nd place — designed and shipped a functional product under time-constrained competitive conditions\n\nDiscover the Art of Prompting  |  Google\t2025\n▸\tCertified in advanced prompt engineering techniques for large language model applications\n\n#100DaysOfCode  |  Open-Source Community\t2025\n▸\tCompleted 100-day public coding challenge — consistent daily contributions across Python, web development, and AI projects\nIntern at pre sales at decimal \nIntern as backend engineer at flyrank ai\n\nOpen to internships · freelance collaborations · open-source projects\n",
+      "score": 60,
+      "skills": [
+        "react",
+        "javascript",
+        "typescript",
+        "python",
+        "css",
+        "scikit-learn",
+        "git",
+        "html"
+      ],
+      "experience": 0,
+      "tag": "None",
+      "aiReasoning": "Analyzed GitHub profile @naivedyasingh7 containing 23 public repositories. Detected high velocity contributions in typescript, html, python. Strongly recommend direct pipeline invite.",
+      "githubUrl": "https://github.com/naivedyasingh7",
+      "id": "asm_dvi9noasq",
+      "createdAt": "2026-06-18T09:43:52.651Z"
+    },
+    {
+      "candidateName": "naivedya ",
+      "jdText": "frontend developer ",
+      "resumeText": "NAIVEDYA SINGH\nFull-Stack Developer  ·  AI Builder  ·  SaaS Creator\nB.Tech CSE @ VIT Bhopal  |  Graduating June 2029\tnaivedyasingh9043@gmail.com\nPrayagraj, Uttar Pradesh, India\nlinkedin.com/in/naivedya-singh-5005a4366\n Hackathon Winner\n\nPROFESSIONAL SUMMARY\n\n\nDriven Computer Science undergraduate at VIT Bhopal with a proven track record of building production-ready AI and SaaS platforms. Specialises in crafting full-stack applications that integrate Large Language Models, RAG pipelines, and predictive ML to solve real-world problems across healthcare, education, and research domains. Hackathon 2nd Prize winner and open-source contributor with a bias for shipping impactful software.\n\nEDUCATION\n\n\nB.Tech – Computer Science & Engineering  |  Vellore Institute of Technology, Bhopal\tJuly 2025 – June 2029\n▸\tGPA: On track | Hackathon 2nd Prize winner | Active open-source contributor\n▸\tRelevant coursework: Data Structures & Algorithms, Machine Learning, Web Technologies, Software Engineering\n\nPROJECTS\n\n\nAegis — Hospital Claim Denial Prevention System\tApr 2026 – Present\nAI-powered revenue intelligence SaaS reducing insurance claim rejections for mid-sized hospitals and specialty clinics across India.\n▸\tBuilt a risk scoring engine combining rule-based validation with ML pattern detection to predict claim denial likelihood before submission\n▸\tAnalysed ICD-10 codes, CPT procedures, insurer-specific rules, and billing amounts to surface top denial causes with actionable remediation steps\n▸\tEngineered a 'revenue at risk' calculator that quantifies potential losses in real time, demonstrating direct ROI to billing teams\n▸\tGenerated audit-ready PDF reports covering risk flags, corrective actions, and compliance checks for regulatory readiness\nTech: Python · Scikit-learn · SaaS · PDF generation · Rule-based AI\n\nSTEMverse — AI Platform for Women in STEM\tNov 2025\nFull-stack, mobile-first Progressive Web App empowering women in STEM through personalised AI mentorship, gamified learning, and curated opportunities.\n▸\tIntegrated Google Gemini API with Retrieval-Augmented Generation (RAG) for context-aware career guidance, scholarship insights, and role-model stories\n▸\tDesigned STEMQuest gamification layer (XP, quests, achievement badges) across 3 career tracks — Software Dev, Data Science, AI\n▸\tBuilt AI Resume Analyzer using Gemini's JSON mode: delivers resume score, identified strengths, and prioritised improvement suggestions\n▸\tDelivered full community forum (tagged posts, threaded replies, upvoting) and curated Opportunities Hub with advanced search and bookmarking\nTech: React · TypeScript · Tailwind CSS · Google Gemini API · RAG · PWA · Render\n\nBioQuest — Research Intelligence Platform\tJan 2026 – Feb 2026\nSaaS platform helping students and scholars validate research ideas, identify novelty gaps, and connect with PhD-level experts.\n▸\tImplemented trend analysis engine to scan ongoing research and flag whether an idea remains novel before significant time is invested\n▸\tBuilt expert-matching system connecting researchers with domain-specific PhD mentors for methodology refinement and publication targeting\nTech: Python · SaaS · Web Design · Software Development\n\nSmart Expense & Profit Analyzer\tMar 2026\nML-powered financial tracking tool for students and micro-businesses, combining expense categorisation with predictive analytics.\n▸\tTrained a Scikit-learn regression model on historical spending data to forecast future expense trends with anomaly detection for unusual patterns\n▸\tDelivered profit calculation module for micro-business transactions with an aggregated financial summary dashboard\nTech: Python · Scikit-learn · Machine Learning · Regression · Anomaly Detection\n\nSRO — Smart Schedule Planner\tNov 2025\n▸\tBuilt an intelligent task scheduling system with multiple optimisation algorithms, visual monthly calendar, and habit tracking\n▸\tArchitected Python backend scheduling engine exposed via RESTful API to a Vanilla JS frontend with schedule export functionality\nTech: Python · Vanilla JavaScript · RESTful API · Backend Engineering\n\nTECHNICAL SKILLS\n\n\nLanguages & Frameworks\nPython\tJavaScript\tTypeScript\tReact\n\nAI / ML\nGemini API\tRAG Pipelines\tScikit-learn\tPrompt Engineering\n\nTools & Platforms\nTailwind CSS\tRESTful APIs\tGit / GitHub\tRender / PWA\n\nDomain Expertise\nSaaS Development\tFull-Stack Dev\tHealthcare Tech\tEdTech\n\nCERTIFICATIONS & ACHIEVEMENTS\n\n\nHackathon – 2nd Prize  |  Competitive Hackathon\t2025\n▸\tSecured 2nd place — designed and shipped a functional product under time-constrained competitive conditions\n\nDiscover the Art of Prompting  |  Google\t2025\n▸\tCertified in advanced prompt engineering techniques for large language model applications\n\n#100DaysOfCode  |  Open-Source Community\t2025\n▸\tCompleted 100-day public coding challenge — consistent daily contributions across Python, web development, and AI projects\nIntern at pre sales at decimal \nIntern as backend engineer at flyrank ai\n\nOpen to internships · freelance collaborations · open-source projects\n",
+      "score": 62,
+      "skills": [
+        "react",
+        "javascript",
+        "typescript",
+        "python",
+        "css",
+        "scikit-learn",
+        "git",
+        "html"
+      ],
+      "experience": 5,
+      "tag": "None",
+      "aiReasoning": "Analyzed GitHub profile @naivedyasingh7 containing 23 public repositories. Detected high velocity contributions in typescript, html, python. Strongly recommend direct pipeline invite.",
+      "githubUrl": "https://github.com/naivedyasingh7",
+      "id": "asm_my5o59t2i",
+      "createdAt": "2026-06-18T09:44:15.027Z"
+    }
+  ],
+  "invitations": [
+    {
+      "assessmentId": "asm_xph96bu0g",
+      "candidateName": "Alex Mercer",
+      "score": 74,
+      "tag": "None",
+      "scheduledTime": "Monday, June 22, 2026 at 10:00 AM",
+      "id": "inv_sgwcu7xig",
+      "status": "sent",
+      "createdAt": "2026-06-18T09:31:13.701Z"
+    }
+  ]
+}
