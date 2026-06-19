@@ -1,0 +1,311 @@
+@import "tailwindcss";
+
+@theme {
+  /* Restored Red and Gold Palette */
+  --color-primary: #E41613;
+  --color-primary-hover: #c31110;
+  --color-primary-container: #E41613;
+  --color-secondary: #C5A880;
+  --color-secondary-container: #A3855C;
+  --color-tertiary: #C5A880;
+  --color-tertiary-container: #A3855C;
+  --color-accent: #C5A880;
+  
+  --color-background: #131313;
+  --color-surface: #131313;
+  --color-surface-dim: #131313;
+  --color-surface-bright: #3a3939;
+  
+  --color-surface-container-lowest: #0e0e0e;
+  --color-surface-container-low: #1c1b1b;
+  --color-surface-container: #201f1f;
+  --color-surface-container-high: #2a2a2a;
+  --color-surface-container-highest: #353534;
+  
+  --color-on-primary: #ffffff;
+  --color-on-secondary: #131313;
+  --color-on-tertiary: #131313;
+  
+  --color-on-surface: #e5e2e1;
+  --color-on-surface-variant: #c4c5d9;
+  
+  --color-outline: #8e90a2;
+  --color-outline-variant: #434656;
+  
+  --color-error: #E41613;
+  --color-error-container: #93000a;
+  --color-on-error: #ffffff;
+
+  /* Typography variables */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui;
+  --font-mono: var(--font-jetbrains-mono), var(--font-geist-mono), ui-monospace;
+  
+  /* Custom Spacing from Design System */
+  --spacing-margin-desktop: 80px;
+  --spacing-margin-mobile: 24px;
+  --spacing-section-gap: 160px;
+  --spacing-container-max: 1200px;
+  --spacing-gutter: 32px;
+}
+
+:root {
+  --background: #131313;
+  --foreground: #e5e2e1;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden;
+  font-family: var(--font-sans);
+}
+
+/* Material Symbols Outlined settings */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Hide scrollbar completely to maintain cinematic look */
+::-webkit-scrollbar {
+  display: none;
+}
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+#opening-sequence {
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
+}
+
+/* Floating physics-driven resume pages in the opening sequence */
+.resume-particle-physics {
+  position: absolute;
+  background: linear-gradient(135deg, #ffffff 0%, #fcfcfc 85%, #eaeaea 100%);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 1px 3px 2px 4px / 3px 2px 4px 1px; /* uneven paper edges */
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.35),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.08); /* inner shadow mimics page curl */
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  opacity: 0;
+}
+
+/* Resume size variants */
+.resume-modern { width: 64px; height: 90px; }
+.resume-outdated { width: 60px; height: 86px; background: linear-gradient(135deg, #FAF6E8 0%, #f5f0dc 85%, #e8e0c8 100%); }
+.resume-minimal { width: 62px; height: 88px; }
+.resume-creative { width: 58px; height: 84px; border-radius: 2px; }
+.resume-academic { width: 66px; height: 92px; background: linear-gradient(135deg, #fefefe 0%, #f8f8f8 85%, #ececec 100%); }
+
+/* Scroll lock during intro animation */
+body.intro-scroll-lock {
+  overflow: hidden !important;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+/* Navbar logo that the intro logo travels into */
+.navbar-logo-target {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 50;
+  width: 36px;
+  height: 36px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.navbar-logo-target.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+@media (min-width: 768px) {
+  .navbar-logo-target {
+    top: 28px;
+    left: 48px;
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* Apple Dark Mode Material Hierarchy Cards */
+.glass-card {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: #111112 !important; /* Solid charcoal level-1 surface */
+  border: 1px solid rgba(255, 255, 255, 0.08) !important; /* Sharp borders */
+  border-radius: 6px !important; /* Precise sharp edges */
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04) !important; /* Subtle inner highlight */
+}
+
+/* Nested Apple Card Surface (Level 2) & Input Fields */
+.glass-card .glass-card,
+textarea,
+input {
+  background: #18181b !important; /* Solid lighter level-2 surface */
+  border: 1px solid rgba(255, 255, 255, 0.12) !important; /* Higher contrast border */
+  border-radius: 6px !important; /* Sharp edges */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* High contrast elements */
+.text-on-surface-variant {
+  color: #a1a1aa !important; /* High contrast text gray */
+}
+
+/* Active buttons and tabs in workspace */
+.glass-card button,
+#sandbox-section button {
+  border-radius: 4px !important; /* Crisp sharp buttons */
+}
+
+/* Pulse / Glow buttons */
+.glow-button:hover {
+  box-shadow: 0 0 20px rgba(228, 22, 19, 0.35);
+}
+
+/* Circular matching and DNA SVG meter transition */
+.dna-ring {
+  transition: stroke-dashoffset 2s ease-out;
+}
+
+/* Linear timeline connectors (Gold timeline lines) */
+.timeline-line {
+  background: linear-gradient(to bottom, transparent, #C5A880, transparent);
+}
+
+/* Traditional rejection stamp active state */
+.reject-stamp {
+  transform: rotate(-15deg) scale(1.5);
+  opacity: 0;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.reject-stamp.active {
+  opacity: 1;
+  transform: rotate(-15deg) scale(1);
+}
+
+/* Interactive nodes in the explainability dashboard */
+.reveal-node {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-node:hover {
+  transform: scale(1.05);
+  background: rgba(228, 22, 19, 0.06);
+}
+
+/* Comparison divider transition */
+.comparison-divider {
+  height: 0;
+  transition: height 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.comparison-divider.active {
+  height: 100%;
+}
+
+.slide-right-panel {
+  transform: translateX(100px);
+  opacity: 0;
+  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.slide-right-panel.active {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Talent Reveal sticky layout scroll states */
+.reveal-sticky-section {
+  height: 300vh;
+  position: relative;
+}
+.reveal-sticky-container {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.8s ease;
+}
+.reveal-node-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1s ease;
+  pointer-events: none;
+  background-image: radial-gradient(circle at 50% 50%, rgba(228, 22, 19, 0.05) 0%, transparent 70%);
+}
+
+/* Interactive Explainability Graph flow vectors */
+.node-connection {
+  stroke: rgba(197, 168, 128, 0.2);
+  stroke-width: 1;
+  stroke-dasharray: 5, 5;
+  animation: dash-flow 20s linear infinite;
+}
+
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+.satellite-node {
+  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  cursor: pointer;
+}
+
+.satellite-node:hover {
+  transform: scale(1.08);
+  border-color: #C5A880;
+  background: rgba(197, 168, 128, 0.1);
+  box-shadow: 0 0 20px rgba(197, 168, 128, 0.2);
+}
+
+/* Glow Border effects styled with the red and gold theme colors */
+.glow-border {
+  position: relative;
+  z-index: 1;
+}
+
+.glow-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(228, 22, 19, 0.3), rgba(197, 168, 128, 0.1));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.glow-border:hover::before {
+  background: linear-gradient(135deg, rgba(228, 22, 19, 0.8), rgba(197, 168, 128, 0.8));
+}
